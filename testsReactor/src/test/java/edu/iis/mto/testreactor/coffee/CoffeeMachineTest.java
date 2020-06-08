@@ -2,8 +2,10 @@ package edu.iis.mto.testreactor.coffee;
 
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.mockito.ArgumentMatchers.anyMap;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import edu.iis.mto.testreactor.coffee.milkprovider.MilkProvider;
@@ -49,6 +51,22 @@ class CoffeeMachineTest {
 
 
     }
+    @Test
+    void ifGrinderCalledShouldtGrindWithExptectedValue(){
+
+        CoffeeSize expectedValue = CoffeeSize.DOUBLE;
+        when(grinder.canGrindFor(expectedValue)).thenReturn(true);
+        when(grinder.grind(expectedValue)).thenReturn(5.0);
+
+
+        CoffeOrder coffeOrder = CoffeOrder.builder().withSize(expectedValue).withType(CoffeType.ESPRESSO).build();
+
+        coffeeMachine.make(coffeOrder);
+
+
+        verify(grinder).grind(expectedValue);
+    }
+
 
 
 
