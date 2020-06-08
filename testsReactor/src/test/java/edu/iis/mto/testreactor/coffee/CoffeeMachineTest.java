@@ -71,17 +71,20 @@ class CoffeeMachineTest {
     @Test
     void ifNoRecipeShouldThrowUnsupportedCoffeeException(){
 
-        CoffeeSize expectedCoffeSizeValue = CoffeeSize.DOUBLE;
-        when(grinder.canGrindFor(expectedCoffeSizeValue)).thenReturn(true);
-        when(grinder.grind(expectedCoffeSizeValue)).thenReturn(5.0);
+        CoffeeSize irrelevantCofeeSize = CoffeeSize.DOUBLE;
+        when(grinder.canGrindFor(irrelevantCofeeSize)).thenReturn(true);
+        when(grinder.grind(irrelevantCofeeSize)).thenReturn(5.0);
 
 
-        CoffeOrder coffeOrder = CoffeOrder.builder().withSize(expectedCoffeSizeValue).withType(CoffeType.ESPRESSO).build();
+        CoffeOrder coffeOrder = CoffeOrder.builder().withSize(irrelevantCofeeSize).withType(CoffeType.ESPRESSO).build();
 
 
         Assertions.assertThrows(UnsupportedCoffeeException.class,
             () -> coffeeMachine.make(coffeOrder));
     }
+
+
+
 
 
 
