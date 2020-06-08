@@ -54,19 +54,34 @@ class CoffeeMachineTest {
     @Test
     void ifGrinderCalledShouldtGrindWithExptectedValue(){
 
-        CoffeeSize expectedValue = CoffeeSize.DOUBLE;
-        when(grinder.canGrindFor(expectedValue)).thenReturn(true);
-        when(grinder.grind(expectedValue)).thenReturn(5.0);
+        CoffeeSize expectedCoffeSizeValue = CoffeeSize.DOUBLE;
+        when(grinder.canGrindFor(expectedCoffeSizeValue)).thenReturn(true);
+        when(grinder.grind(expectedCoffeSizeValue)).thenReturn(5.0);
 
 
-        CoffeOrder coffeOrder = CoffeOrder.builder().withSize(expectedValue).withType(CoffeType.ESPRESSO).build();
+        CoffeOrder coffeOrder = CoffeOrder.builder().withSize(expectedCoffeSizeValue).withType(CoffeType.ESPRESSO).build();
 
         coffeeMachine.make(coffeOrder);
 
 
-        verify(grinder).grind(expectedValue);
+        verify(grinder).grind(expectedCoffeSizeValue);
     }
 
+
+    @Test
+    void ifNoRecipeShouldThrowUnsupportedCoffeeException(){
+
+        CoffeeSize expectedCoffeSizeValue = CoffeeSize.DOUBLE;
+        when(grinder.canGrindFor(expectedCoffeSizeValue)).thenReturn(true);
+        when(grinder.grind(expectedCoffeSizeValue)).thenReturn(5.0);
+
+
+        CoffeOrder coffeOrder = CoffeOrder.builder().withSize(expectedCoffeSizeValue).withType(CoffeType.ESPRESSO).build();
+
+
+        Assertions.assertThrows(UnsupportedCoffeeException.class,
+            () -> coffeeMachine.make(coffeOrder));
+    }
 
 
 
