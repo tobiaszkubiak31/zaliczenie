@@ -39,10 +39,9 @@ class CoffeeMachineTest {
     @Test
     void ifGrinderCantGrindThrowNoCoffeebeansException(){
         CoffeeSize aDouble = CoffeeSize.DOUBLE;
-        doThrow(new NoCoffeeBeansException()).when(grinder).canGrindFor(aDouble);
-
-
         CoffeOrder coffeOrder = CoffeOrder.builder().withSize(aDouble).withType(CoffeType.CAPUCCINO).build();
+
+        doThrow(new NoCoffeeBeansException()).when(grinder).canGrindFor(aDouble);
 
         coffeeMachine.make(coffeOrder);
 
@@ -81,6 +80,26 @@ class CoffeeMachineTest {
 
         Assertions.assertThrows(UnsupportedCoffeeException.class,
             () -> coffeeMachine.make(coffeOrder));
+    }
+
+    @Test
+    void makeCoffeWithSucces(){
+        CoffeeSize smallCoffe = CoffeeSize.SMALL;
+        when(grinder.canGrindFor(smallCoffe)).thenReturn(true);
+        when(grinder.grind(smallCoffe)).thenReturn(5.0);
+
+        CoffeOrder order = CoffeOrder.builder().withSize(smallCoffe).withType(CoffeType.CAPUCCINO).build();
+
+        when(recipes.getReceipe(order.getType())).thenReturn(CoffeeReceipe.builder().withMilkAmount(5).withWaterAmounts(anyMap()).build());
+
+
+        CoffeOrder coffeOrder = CoffeOrder.builder().withSize(smallCoffe).withType(CoffeType.CAPUCCINO).build();
+
+        coffeeMachine.make(coffeOrder);
+
+
+
+
     }
 
 
