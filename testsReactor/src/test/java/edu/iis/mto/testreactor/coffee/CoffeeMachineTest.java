@@ -57,7 +57,6 @@ class CoffeeMachineTest {
         when(grinder.canGrindFor(expectedCoffeSizeValue)).thenReturn(true);
         when(grinder.grind(expectedCoffeSizeValue)).thenReturn(5.0);
 
-
         CoffeOrder coffeOrder = CoffeOrder.builder().withSize(expectedCoffeSizeValue).withType(CoffeType.ESPRESSO).build();
 
         coffeeMachine.make(coffeOrder);
@@ -98,22 +97,8 @@ class CoffeeMachineTest {
         coffeeMachine.make(coffeOrder);
 
 
-
-
     }
 
-
-
-
-
-
-
-
-
-    @Test
-    public void itCompiles() {
-        assertThat(true, Matchers.equalTo(true));
-    }
 
 
 
