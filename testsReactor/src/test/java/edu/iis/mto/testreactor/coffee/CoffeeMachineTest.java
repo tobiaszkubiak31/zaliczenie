@@ -1,9 +1,10 @@
 package edu.iis.mto.testreactor.coffee;
 
-import static javafx.beans.binding.Bindings.when;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import edu.iis.mto.testreactor.coffee.milkprovider.MilkProvider;
 import org.hamcrest.Matchers;
@@ -34,20 +35,23 @@ class CoffeeMachineTest {
     }
 
     @Test
-    void ifGrinder(){
-//        CoffeeSize aDouble = CoffeeSize.DOUBLE;
-//        doThrow(new NoCoffeeBeansException()).when(grinder).canGrindFor(aDouble);
-//
-//
-//        CoffeOrder coffeOrder = CoffeOrder.builder().withSize(aDouble).withType(CoffeType.CAPUCCINO).build();
-//
-//        coffeeMachine.make(coffeOrder);
-//
-//        Assertions.assertThrows(NoCoffeeBeansException.class,
-//            () -> coffeeMachine.make(coffeOrder));
+    void ifGrinderCantGrindThrowNoCoffeebeansException(){
+        CoffeeSize aDouble = CoffeeSize.DOUBLE;
+        doThrow(new NoCoffeeBeansException()).when(grinder).canGrindFor(aDouble);
+
+
+        CoffeOrder coffeOrder = CoffeOrder.builder().withSize(aDouble).withType(CoffeType.CAPUCCINO).build();
+
+        coffeeMachine.make(coffeOrder);
+
+        Assertions.assertThrows(NoCoffeeBeansException.class,
+            () -> coffeeMachine.make(coffeOrder));
 
 
     }
+
+
+
 
 
 
